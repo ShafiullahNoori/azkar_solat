@@ -18,10 +18,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   void initState() {
-    var currentTime = DateTime.now().hour;
-
     super.initState();
 
+    var currentTime = DateTime.now().hour;
     if (currentTime < 5) {
       morningPrayerActive = false;
       noonPrayerActive = false;
@@ -74,86 +73,95 @@ class _MainPageState extends State<MainPage> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage("assets/images/madina.jpg"),
+            fit: BoxFit.cover,
+            image: AssetImage("assets/images/makkah.jpg"),
           ),
         ),
         width: double.infinity,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 1.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PrayerButton(
-                isButtonActive: morningPrayerActive,
-                duaaCount: morningDuaa.toString(),
-                buttonText: "Morning Prayer",
-                buttonFunction: () {
-                  activeZikr = "morningPrayer";
-                  Navigator.pushNamed(context, "/morningPrayer");
-                },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PrayerButton(
+              isButtonActive: morningPrayerActive,
+              duaaCount: morningDuaa.toString(),
+              buttonText: "Morning Prayer",
+              buttonFunction: () {
+                activeZikr = "morningPrayer";
+                Navigator.pushNamed(context, "/morningPrayer");
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            PrayerButton(
+              isButtonActive: noonPrayerActive,
+              duaaCount: noonDuaa.toString(),
+              buttonText: "Noon Prayer",
+              buttonFunction: () {
+                activeZikr = "noonPrayer";
+                print(activeZikr);
+                Navigator.pushNamed(context, "/noonPrayer");
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            PrayerButton(
+              isButtonActive: afterNoonPrayerActive,
+              duaaCount: afternoonDuaa.toString(),
+              buttonText: "Afternoon Prayer",
+              buttonFunction: () {
+                Navigator.pushNamed(context, "/afterNoonPrayer");
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            PrayerButton(
+              isButtonActive: eveningPrayerActive,
+              duaaCount: eveningDuaa.toString(),
+              buttonText: "Evening Prayer",
+              buttonFunction: () {
+                Navigator.pushNamed(context, "/eveningPrayer");
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            PrayerButton(
+              isButtonActive: nightPrayerActive,
+              duaaCount: nightDuaa.toString(),
+              buttonText: "Night Prayer",
+              buttonFunction: () {
+                Navigator.pushNamed(context, "/nightPrayer");
+              },
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => AboutDialog(
+                    applicationIcon: FlutterLogo(),
+                    applicationName: "Azkar Solat",
+                    applicationVersion: "1.0.0",
+                    applicationLegalese: "Legalese",
+                    children: [
+                      Text(
+                          "This app is designed and created by Shafiullah Noori. Hope it serves it purpose. 😊")
+                    ],
+                  ),
+                );
+              },
+              child: Text(
+                "About",
+                style: TextStyle(color: Colors.white),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              PrayerButton(
-                isButtonActive: noonPrayerActive,
-                duaaCount: noonDuaa.toString(),
-                buttonText: "Noon Prayer",
-                buttonFunction: () {
-                  activeZikr = "noonPrayer";
-                  print(activeZikr);
-                  Navigator.pushNamed(context, "/noonPrayer");
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              PrayerButton(
-                isButtonActive: afterNoonPrayerActive,
-                duaaCount: afternoonDuaa.toString(),
-                buttonText: "Afternoon Prayer",
-                buttonFunction: () {
-                  Navigator.pushNamed(context, "/afterNoonPrayer");
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              PrayerButton(
-                isButtonActive: eveningPrayerActive,
-                duaaCount: eveningDuaa.toString(),
-                buttonText: "Evening Prayer",
-                buttonFunction: () {
-                  Navigator.pushNamed(context, "/eveningPrayer");
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              PrayerButton(
-                isButtonActive: nightPrayerActive,
-                duaaCount: nightDuaa.toString(),
-                buttonText: "Night Prayer",
-                buttonFunction: () {
-                  Navigator.pushNamed(context, "/nightPrayer");
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              PrayerButton(
-                  buttonText: "About",
-                  buttonFunction: () {
-                    Navigator.pushNamed(context, "/about");
-                  },
-                  duaaCount: "",
-                  isButtonActive: true)
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
